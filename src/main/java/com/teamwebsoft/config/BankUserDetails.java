@@ -9,9 +9,12 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class BankUserDetails implements UserDetailsService {
     @Autowired
     private static CustomerRepository customerRepository;
@@ -27,6 +30,7 @@ public class BankUserDetails implements UserDetailsService {
         else{
             userName = customers.get(0).getEmail();
             password = customers.get(0).getPwd();
+            authorities = new ArrayList<>();
             authorities.add(new SimpleGrantedAuthority(customers.get(0).getRole()));
         }
         return new User(userName,password,authorities);
