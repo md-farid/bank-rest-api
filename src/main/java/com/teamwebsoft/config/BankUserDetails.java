@@ -16,13 +16,15 @@ import java.util.List;
 
 @Service
 public class BankUserDetails implements UserDetailsService {
+
     @Autowired
-    private static CustomerRepository customerRepository;
+    CustomerRepository customerRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         String userName,password=null;
         List<GrantedAuthority> authorities = null;
+        System.out.println(customerRepository);
         List<Customer> customers = customerRepository.findByEmail(username);
         if(customers.size() == 0){
             throw new UsernameNotFoundException("User details not found for the user."+username);
