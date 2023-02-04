@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
 
     @Autowired
-    CustomerRepository customerRepository;
+    private CustomerRepository customerRepository;
 
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody Customer customer){

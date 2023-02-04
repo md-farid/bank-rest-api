@@ -18,7 +18,7 @@ import java.util.List;
 public class BankUserDetails implements UserDetailsService {
 
     @Autowired
-    CustomerRepository customerRepository;
+    private CustomerRepository customerRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
