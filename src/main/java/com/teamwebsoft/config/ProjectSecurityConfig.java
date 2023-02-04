@@ -1,15 +1,14 @@
 package com.teamwebsoft.config;
 
-import org.springframework.cglib.proxy.NoOp;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+
+import javax.sql.DataSource;
 
 @Configuration
 public class ProjectSecurityConfig {
@@ -28,6 +27,7 @@ public class ProjectSecurityConfig {
         return http.build();
     }
 
+    /**
     @Bean
     InMemoryUserDetailsManager userDetailsService(){
         /*Approach 1 where we use withDefaultPasswordEncoder() method
@@ -48,7 +48,7 @@ public class ProjectSecurityConfig {
         return new InMemoryUserDetailsManager(admin,user);*/
 
         /*Approach 2 where we use NoOpPasswordEncoder Bean
-        while creating the user details*/
+        while creating the user details
 
         InMemoryUserDetailsManager inMemoryUserDetailsManager = new InMemoryUserDetailsManager();
 
@@ -57,6 +57,11 @@ public class ProjectSecurityConfig {
         inMemoryUserDetailsManager.createUser(user);
         inMemoryUserDetailsManager.createUser(admin);
         return inMemoryUserDetailsManager;
+    }*/
+
+    @Bean
+    JdbcUserDetailsManager jdbcUserDetailsManager(DataSource dataSource){
+        return new JdbcUserDetailsManager(dataSource);
     }
 
     @Bean
