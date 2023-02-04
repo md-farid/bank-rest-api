@@ -59,10 +59,11 @@ public class ProjectSecurityConfig {
         return inMemoryUserDetailsManager;
     }*/
 
+    /**
     @Bean
     JdbcUserDetailsManager jdbcUserDetailsManager(DataSource dataSource){
         return new JdbcUserDetailsManager(dataSource);
-    }
+    }*/
 
     @Bean
     PasswordEncoder passwordEncoder(){
